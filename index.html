@@ -2,6 +2,7 @@
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html>
 <head>
+  <meta http-equiv="content-type" content="text/html;charset=utf-8" />
   <title>Math Practice</title>
   <style type="text/css">
   h1 {
@@ -15,20 +16,27 @@
   #whole {
     margin-left: auto;
     margin-right: auto;
+    background-Color: lightgrey;
+    margin-top:30px;
   }
   table.problem {
     font-family: Sans-Serif;
     font-size: 24px;
     text-align: right;
+    background-Color: LightSteelBlue;
     /* border-bottom: solid; */
     margin: 40px;
   }
+  
   input.answer {
-    /* font-family: Sans-Serif; */
-    /* font-size: 24px; */
-    text-align: right;
-    /* border-bottom: solid; */
-    /* margin: 40px; */
+  }
+  .center {
+    margin: 0;
+    position: absolute;
+    left: 50%;
+    margin-top:10px;
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
   }
   </style>
   <script>
@@ -51,22 +59,23 @@
     }
     var answerid="ans"+i+j
     var iconid="icon"+i+j
-    return '<table class="problem">' +
+    var problemid="problem"+i+j
+    return '<table class="problem" id=' + problemid + '>' +
                    '<tr><td></td><td>' + top + '</td></tr>' +
-                   '<tr><td>' + operator + '</td><td>' + bottom + '</td></tr>' +
-                   '<tr><td id='+iconid+'></td><td><input class="answer" autocomplete="off" type="number" id='+answerid+' name="fname" value="" result='+answervalue+'>' + '</td></tr>' +
+                   '<tr class="seperate"><td>' + operator + '</td><td>' + bottom + '</td></tr>' +
+                   '<tr><td id='+iconid+'></td><td><input class="answer" dir="rtl" autocomplete="off" type="number" id='+answerid+' name="fname" value="" result='+answervalue+'>' + '</td></tr>' +
                    '</table>';
   }
   </script>
 </head>
 <body>
-  <h1>Math Practice</h1>
-  <input type="button" value="check answers" onclick="onclick1('123qweasdzxc', '123');">
+  <h1>תרגילי חשבון</h1>
+  <input class="center" type="button" value="בדיקה" onclick="onclick1();">
   <table id="whole">
     <script>
     for (i=0; i<5; i++){
       document.write("<tr>");
-      for (j=0; j<5; j++) {
+      for (j=0; j<3; j++) {
         document.write('<td>' + single_problem(i,j) + '</td>');
       }
       document.write('</tr>');
@@ -78,24 +87,19 @@
 </html>
 
 <script>
-  function onclick1(line, l2){
+  function onclick1(){
     for (i=0; i<5; i++){
-      for (j=0; j<5; j++) {
-        elemid = 'ans'+i+j
+      for (j=0; j<3; j++) {
         var result = document.getElementById('ans'+i+j).getAttribute("result")
         var value = document.getElementById('ans'+i+j).value
-        if (result==value){
-          document.getElementById('icon'+i+j).innerHTML="V"
+        var problem = document.getElementById('problem'+i+j)
+        if (value){
+          if (result==value)
+            problem.style.backgroundColor="green"
+          else
+            problem.style.backgroundColor="red"
         }
-        else{
-          document.getElementById('icon'+i+j).innerHTML="X"
-        }
-        console.log(result,value,result==value)
       }
     }
-    
-    // console.log(document.getElementById('ans03'))
   }
-   
-
 </script>
