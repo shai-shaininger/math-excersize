@@ -1,0 +1,101 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+<head>
+  <title>Math Practice</title>
+  <style type="text/css">
+  h1 {
+    text-align: center;
+    font-family: Sans-Serif;
+    font-weight: bold;
+    font-size: 36px;
+    margin: 20px 0 0 0;
+    padding: 0;
+  }
+  #whole {
+    margin-left: auto;
+    margin-right: auto;
+  }
+  table.problem {
+    font-family: Sans-Serif;
+    font-size: 24px;
+    text-align: right;
+    /* border-bottom: solid; */
+    margin: 40px;
+  }
+  input.answer {
+    /* font-family: Sans-Serif; */
+    /* font-size: 24px; */
+    text-align: right;
+    /* border-bottom: solid; */
+    /* margin: 40px; */
+  }
+  </style>
+  <script>
+  function single_problem(i,j) {
+    var operator = "+";
+    if (Math.random() < .6) {
+      operator = "&#8722;";
+    }
+    var a = Math.floor(Math.random()*10 + 10);
+    var b = Math.floor(Math.random()*(a-1) + 1);
+    var c = a - b;
+    if (operator == "+") {
+      var top = b;
+      var bottom = c;
+      var answervalue=a;
+    } else {
+      var top = a;
+      var bottom = b;
+      var answervalue=c;
+    }
+    var answerid="ans"+i+j
+    var iconid="icon"+i+j
+    return '<table class="problem">' +
+                   '<tr><td></td><td>' + top + '</td></tr>' +
+                   '<tr><td>' + operator + '</td><td>' + bottom + '</td></tr>' +
+                   '<tr><td id='+iconid+'></td><td><input class="answer" autocomplete="off" type="number" id='+answerid+' name="fname" value="" result='+answervalue+'>' + '</td></tr>' +
+                   '</table>';
+  }
+  </script>
+</head>
+<body>
+  <h1>Math Practice</h1>
+  <input type="button" value="check answers" onclick="onclick1('123qweasdzxc', '123');">
+  <table id="whole">
+    <script>
+    for (i=0; i<5; i++){
+      document.write("<tr>");
+      for (j=0; j<5; j++) {
+        document.write('<td>' + single_problem(i,j) + '</td>');
+      }
+      document.write('</tr>');
+    }
+    </script>
+  </table>
+  
+</body>
+</html>
+
+<script>
+  function onclick1(line, l2){
+    for (i=0; i<5; i++){
+      for (j=0; j<5; j++) {
+        elemid = 'ans'+i+j
+        var result = document.getElementById('ans'+i+j).getAttribute("result")
+        var value = document.getElementById('ans'+i+j).value
+        if (result==value){
+          document.getElementById('icon'+i+j).innerHTML="V"
+        }
+        else{
+          document.getElementById('icon'+i+j).innerHTML="X"
+        }
+        console.log(result,value,result==value)
+      }
+    }
+    
+    // console.log(document.getElementById('ans03'))
+  }
+   
+
+</script>
