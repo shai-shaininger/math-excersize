@@ -28,66 +28,70 @@
     margin: 40px;
   }
   
-  input.answer {
-  }
-  .center {
-    margin: 0;
-    position: absolute;
-    left: 50%;
+  .btns {
+    margin-left: 12%;
     margin-top:10px;
-    -ms-transform: translate(-50%, -50%);
-    transform: translate(-50%, -50%);
   }
   </style>
   <script>
-  function single_problem(i,j) {
-    var operator = "+";
-    if (Math.random() < .6) {
-      operator = "&#8722;";
-    }
     const params = new URLSearchParams(document.location.search);
-    const s = params.get("s");
-    var power
-    if (s==null)
-      power = 10
-    else
-      power = 10**s
-    var a = Math.floor(Math.random()*power + 10);
-    var b = Math.floor(Math.random()*(a-1) + 1);
-    var c = a - b;
-    if (operator == "+") {
-      var top = b;
-      var bottom = c;
-      var answervalue=a;
-    } else {
-      var top = a;
-      var bottom = b;
-      var answervalue=c;
+    const power = params.get("power");
+    if (power==null) {window.location.assign("index.html?power=10");}
+
+    function onclick1(){
+      for (i=0; i<5; i++){
+        for (j=0; j<3; j++) {
+          var result = document.getElementById('ans'+i+j).getAttribute("result")
+          var value = document.getElementById('ans'+i+j).value
+          var problem = document.getElementById('problem'+i+j)
+          if (value){
+            if (result==value)
+              problem.style.backgroundColor="green"
+            else
+              problem.style.backgroundColor="red"
+          }
+        }
+      }
     }
-    var answerid="ans"+i+j
-    var iconid="icon"+i+j
-    var problemid="problem"+i+j
-    return '<table class="problem" id=' + problemid + '>' +
-                   '<tr><td></td><td>' + top + '</td></tr>' +
-                   '<tr class="seperate"><td>' + operator + '</td><td>' + bottom + '</td></tr>' +
-                   '<tr><td id='+iconid+'></td><td><input class="answer" dir="rtl" autocomplete="off" type="number" id='+answerid+' name="fname" value="" result='+answervalue+'>' + '</td></tr>' +
-                   '</table>';
-  }
+
+    function single_problem(i,j) {
+      var operator = "+";
+      if (Math.random() < .6) {
+        operator = "&#8722;";
+      }
+      var a = Math.floor(Math.random()*power + 10);
+      var b = Math.floor(Math.random()*(a-1) + 1);
+      var c = a - b;
+      if (operator == "+") {
+        var top = b;
+        var bottom = c;
+        var answervalue=a;
+      } else {
+        var top = a;
+        var bottom = b;
+        var answervalue=c;
+      }
+      var answerid="ans"+i+j
+      var iconid="icon"+i+j
+      var problemid="problem"+i+j
+      return '<table class="problem" id=' + problemid + '>' +
+                    '<tr><td></td><td>' + top + '</td></tr>' +
+                    '<tr class="seperate"><td>' + operator + '</td><td>' + bottom + '</td></tr>' +
+                    '<tr><td id='+iconid+'></td><td><input class="answer" dir="rtl" autocomplete="off" type="number" id='+answerid+' name="fname" value="" result='+answervalue+'>' + '</td></tr>' +
+                    '</table>';
+    }
   </script>
 </head>
 <body>
   <h1>תרגילי חשבון</h1>
-  <input class="center" type="button" value="בדיקה" onclick="onclick1();">
+  
   <script language="javascript" type="text/javascript">
-    const params = new URLSearchParams(document.location.search);
-    const s = params.get("s");
-    if (s)
-      var scrt_var = parseInt(s)+1; 
-    else
-      var scrt_var = 2; 
-    </script>
-    <a href="index.html">upto(20)</a><br>
-    <a style="float: right;" href="index.html" onclick="location.href=this.href+'?s='+scrt_var;return false;">make it harder</a>
+  </script>
+  <input class="btns" type="button" value="20" onclick="location.href='index.html?power=10';">
+  <input class="btns" type="button" value="100" onclick="location.href='index.html?power=100';">
+  <input class="btns" type="button" value="בדיקה" onclick="onclick1();">
+  <input class="btns" type="button" value="1000" onclick="location.href='index.html?power=1000';">
+  <input class="btns" type="button" value="10,000" onclick="location.href='index.html?power=10000';">
   <table id="whole">
     <script>
     for (i=0; i<5; i++){
@@ -102,24 +106,3 @@
   
 </body>
 </html>
-
-<script>
-  function onclick1(){
-    for (i=0; i<5; i++){
-      for (j=0; j<3; j++) {
-        var result = document.getElementById('ans'+i+j).getAttribute("result")
-        var value = document.getElementById('ans'+i+j).value
-        var problem = document.getElementById('problem'+i+j)
-        if (value){
-          if (result==value)
-            problem.style.backgroundColor="green"
-          else
-            problem.style.backgroundColor="red"
-        }
-      }
-    }
-  }
-  function jumpup(){
-    return "location.href=this.href+'?s=1'"
-  }
-</script>
