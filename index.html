@@ -45,7 +45,14 @@
     if (Math.random() < .6) {
       operator = "&#8722;";
     }
-    var a = Math.floor(Math.random()*10 + 10);
+    const params = new URLSearchParams(document.location.search);
+    const s = params.get("s");
+    var power
+    if (s==null)
+      power = 10
+    else
+      power = 10**s
+    var a = Math.floor(Math.random()*power + 10);
     var b = Math.floor(Math.random()*(a-1) + 1);
     var c = a - b;
     if (operator == "+") {
@@ -71,6 +78,16 @@
 <body>
   <h1>תרגילי חשבון</h1>
   <input class="center" type="button" value="בדיקה" onclick="onclick1();">
+  <script language="javascript" type="text/javascript">
+    const params = new URLSearchParams(document.location.search);
+    const s = params.get("s");
+    if (s)
+      var scrt_var = parseInt(s)+1; 
+    else
+      var scrt_var = 2; 
+    </script>
+    <a href="index.html">upto(20)</a><br>
+    <a style="float: right;" href="index.html" onclick="location.href=this.href+'?s='+scrt_var;return false;">make it harder</a>
   <table id="whole">
     <script>
     for (i=0; i<5; i++){
@@ -101,5 +118,8 @@
         }
       }
     }
+  }
+  function jumpup(){
+    return "location.href=this.href+'?s=1'"
   }
 </script>
